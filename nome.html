@@ -15,6 +15,7 @@
         }
         .response {
             margin: 20px;
+            display: inline-block;
         }
         button {
             background-color: #4CAF50;
@@ -28,16 +29,19 @@
         button:hover {
             background-color: #45a049;
         }
+        #decline-container {
+            position: absolute;
+        }
     </style>
 </head>
 <body>
-    <h1>Aceitas namorar comigo, Joana Serra? 💖</h1>
+    <h1>Joana Serra, aceitas namorar com o teu Diogo Miguel? 💖</h1>
     <form id="form-response">
         <div class="response">
             <input type="radio" id="accept" name="response" value="aceito">
             <label for="accept">Aceito</label>
         </div>
-        <div class="response">
+        <div class="response" id="decline-container">
             <input type="radio" id="decline" name="response" value="não">
             <label for="decline">Não</label>
         </div>
@@ -47,19 +51,28 @@
     <script>
         const form = document.getElementById('form-response');
         const output = document.getElementById('output');
+        const declineContainer = document.getElementById('decline-container');
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const response = document.querySelector('input[name="response"]:checked');
             if (response) {
                 if (response.value === 'aceito') {
-                    output.textContent = "💖 Que maravilha, Joana! 💖";
+                    output.textContent = "💖 Então dá-me a mão e vamos ser felizes! 💖";
                 } else {
                     output.textContent = "😢 Que pena, Joana... 😢";
                 }
             } else {
                 output.textContent = "Por favor, selecione uma opção.";
             }
+        });
+
+        // Movimento "Não aceito" para evitar clique
+        declineContainer.addEventListener('mouseover', () => {
+            const randomX = Math.random() * (window.innerWidth - declineContainer.offsetWidth);
+            const randomY = Math.random() * (window.innerHeight - declineContainer.offsetHeight);
+            declineContainer.style.left = `${randomX}px`;
+            declineContainer.style.top = `${randomY}px`;
         });
     </script>
 </body>
